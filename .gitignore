@@ -30,6 +30,10 @@ node_modules/
 # -----------------------------------------------------------------
 dist/
 */dist/
+!backend/dist/
+!backend/dist/**
+!shared/dist/
+!shared/dist/**
 build/
 *.tsbuildinfo
 .eslintcache

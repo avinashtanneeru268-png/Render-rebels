@@ -6,7 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsc -p ../shared && tsc",
+    "postinstall": "tsc -p ../shared && tsc",
     "start": "node dist/index.js",
     "seed": "tsx scripts/seed-demo.ts"
   },
