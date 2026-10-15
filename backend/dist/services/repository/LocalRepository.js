@@ -5,7 +5,9 @@ export class LocalRepository {
     dbPath;
     data;
     constructor() {
-        const dataDir = path.resolve(process.cwd(), "data");
+        const dataDir = process.env.VERCEL
+            ? path.join("/tmp", "data")
+            : path.resolve(process.cwd(), "data");
         if (!fs.existsSync(dataDir)) {
             fs.mkdirSync(dataDir, { recursive: true });
         }

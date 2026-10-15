@@ -4,7 +4,9 @@ import crypto from "crypto";
 export class LocalStorageProvider {
     baseDir;
     constructor() {
-        this.baseDir = path.resolve(process.cwd(), "data", "uploads");
+        this.baseDir = process.env.VERCEL
+            ? path.join("/tmp", "data", "uploads")
+            : path.resolve(process.cwd(), "data", "uploads");
         if (!fs.existsSync(this.baseDir)) {
             fs.mkdirSync(this.baseDir, { recursive: true });
         }

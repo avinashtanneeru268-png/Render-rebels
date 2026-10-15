@@ -46,9 +46,9 @@ app.use("/api/demo/cases", demoRouter);
 app.use("/api/media", mediaRouter);
 // Centralized Error Handling
 app.use(errorHandler);
-// Start Server (only when not running under test runner)
+// Start Server (only when not running under test runner or on Vercel)
 let server = null;
-if (process.env.NODE_ENV !== "test") {
+if (process.env.NODE_ENV !== "test" && !process.env.VERCEL) {
     server = app.listen(env.PORT, () => {
         console.log(`================================================================`);
         console.log(`🚀 SiteSentinel Backend Engine online on port ${env.PORT}`);

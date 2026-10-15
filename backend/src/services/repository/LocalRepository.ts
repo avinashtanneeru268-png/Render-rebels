@@ -31,7 +31,9 @@ export class LocalRepository implements IRepository {
   private data: DatabaseSchema;
 
   constructor() {
-    const dataDir = path.resolve(process.cwd(), "data");
+    const dataDir = process.env.VERCEL
+      ? path.join("/tmp", "data")
+      : path.resolve(process.cwd(), "data");
     if (!fs.existsSync(dataDir)) {
       fs.mkdirSync(dataDir, { recursive: true });
     }
