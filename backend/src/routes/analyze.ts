@@ -32,9 +32,9 @@ const analyzeLimiter = rateLimit({
 
 router.post(
   "/",
-  authMiddleware,
-  analyzeLimiter,
-  upload.single("file"),
+  authMiddleware as any,
+  analyzeLimiter as any,
+  upload.single("file") as any,
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const user = req.user!;
