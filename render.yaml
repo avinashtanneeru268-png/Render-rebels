@@ -4,8 +4,8 @@ services:
     runtime: node
     plan: free
     region: oregon
-    buildCommand: npm ci && npm run build -w shared && npm run build -w backend
-    startCommand: node backend/dist/index.js
+    buildCommand: npm install && npm run build:backend
+    startCommand: npm run start:backend
     healthCheckPath: /api/health
     autoDeploy: true
     envVars:

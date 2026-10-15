@@ -9,17 +9,24 @@
     "frontend"
   ],
   "scripts": {
-    "start": "npm run dev",
+    "start": "node backend/dist/index.js",
+    "start:backend": "node backend/dist/index.js",
     "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"cyan,magenta\" \"npm run dev -w backend\" \"npm run dev -w frontend\"",
     "dev:backend": "npm run dev -w backend",
     "dev:frontend": "npm run dev -w frontend",
     "dev:server": "npm run dev -w backend",
     "dev:client": "npm run dev -w frontend",
     "build": "npm run build -w shared && npm run build -w backend && npm run build -w frontend",
+    "build:backend": "npm run build -w shared && npm run build -w backend",
+    "build:frontend": "npm run build -w shared && npm run build -w frontend",
+    "postinstall": "npm run build:backend",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:api": "vitest run tests/api",
     "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",

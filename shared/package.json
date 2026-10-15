@@ -13,7 +13,7 @@
     }
   },
   "scripts": {
-    "build": "npx tsc"
+    "build": "tsc"
   },
   "dependencies": {
     "zod": "^3.24.2"
