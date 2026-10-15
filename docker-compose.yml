@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  sitesentinel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sitesentinel-app
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - DATA_MODE=local
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.5-flash}
+      - CLIENT_URL=http://localhost:5000
+    volumes:
+      - sitesentinel-data:/app/data
+      - sitesentinel-uploads:/app/uploads
+
+volumes:
+  sitesentinel-data:
+  sitesentinel-uploads:

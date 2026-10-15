@@ -1,0 +1,87 @@
+# =================================================================
+# SiteSentinel — Git Ignore Configuration
+# =================================================================
+
+# -----------------------------------------------------------------
+# 🔒 SENSITIVE CREDENTIALS & ENVIRONMENT FILES (NEVER COMMIT)
+# -----------------------------------------------------------------
+.env
+.env.*
+*.env
+backend/.env
+frontend/.env
+client/.env
+
+# Explicitly preserve public template files
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+# -----------------------------------------------------------------
+# 📦 DEPENDENCIES & PACKAGE MANAGERS
+# -----------------------------------------------------------------
+node_modules/
+*/node_modules/
+.pnp
+.pnp.js
+
+# -----------------------------------------------------------------
+# 🚀 BUILD ARTIFACTS & COMPILED OUTPUTS
+# -----------------------------------------------------------------
+dist/
+*/dist/
+build/
+*.tsbuildinfo
+.eslintcache
+.cache/
+.vite/
+
+# -----------------------------------------------------------------
+# 💾 LOCAL STORAGE & PERSISTENCE (Runtime generated files)
+# -----------------------------------------------------------------
+data/
+uploads/
+*.sqlite
+*.sqlite3
+*.db
+*.local.json
+
+# -----------------------------------------------------------------
+# 📁 LEGACY DIRECTORY
+# (Old client folder migrated to frontend/)
+# -----------------------------------------------------------------
+client/
+
+# -----------------------------------------------------------------
+# 📜 LOGS & RUNTIME DEBUG FILES
+# -----------------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# -----------------------------------------------------------------
+# 🧪 TEST & COVERAGE ARTIFACTS
+# -----------------------------------------------------------------
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# -----------------------------------------------------------------
+# 💻 OS & IDE SYSTEM FILES
+# -----------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.gemini/
