@@ -32,6 +32,8 @@ dist/
 */dist/
 !backend/dist/
 !backend/dist/**
+!backend/backend/dist/
+!backend/backend/dist/**
 !shared/dist/
 !shared/dist/**
 build/
