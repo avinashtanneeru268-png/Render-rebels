@@ -7,7 +7,9 @@ import {
   AnalysesFilterQuery,
 } from "@sitesentinel/shared";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "";
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.PROD ? "https://render-rebels-1.onrender.com" : "");
 
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const url = `${API_BASE}${endpoint}`;
