@@ -22,8 +22,14 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow localhost dev origins and matching CLIENT_URL
-      if (!origin || origin === env.CLIENT_URL || origin.includes("localhost") || origin.includes("127.0.0.1")) {
+      // Allow localhost dev origins, matching CLIENT_URL, and Vercel domains
+      if (
+        !origin ||
+        origin === env.CLIENT_URL ||
+        origin.includes("localhost") ||
+        origin.includes("127.0.0.1") ||
+        origin.includes(".vercel.app")
+      ) {
         callback(null, true);
       } else {
         callback(null, true); // Dev-friendly fallback
