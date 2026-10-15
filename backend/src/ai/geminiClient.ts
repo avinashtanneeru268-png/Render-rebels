@@ -45,11 +45,15 @@ async function withRetry<T>(fn: () => Promise<T>, maxRetries = 3): Promise<T> {
       attempt++;
       const isRateLimit =
         err?.status === 429 ||
+        err?.status === 503 ||
         err?.message?.includes("429") ||
-        err?.message?.includes("RESOURCE_EXHAUSTED");
+        err?.message?.includes("503") ||
+        err?.message?.includes("RESOURCE_EXHAUSTED") ||
+        err?.message?.includes("UNAVAILABLE") ||
+        err?.message?.includes("high demand");
       if (isRateLimit && attempt < maxRetries) {
         const jitter = Math.random() * 500;
-        console.warn(`[Gemini API] Rate limit hit. Retrying in ${delay + jitter}ms (attempt ${attempt}/${maxRetries})...`);
+        console.warn(`[Gemini API] Temporary capacity/rate limit hit (${err?.status || '503'}). Retrying in ${Math.round(delay + jitter)}ms (attempt ${attempt}/${maxRetries})...`);
         await new Promise((r) => setTimeout(r, delay + jitter));
         delay *= 2;
         continue;

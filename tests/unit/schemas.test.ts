@@ -105,7 +105,7 @@ describe("Shared Zod Schemas & Validation", () => {
       if (res.success) {
         expect(res.data.DATA_MODE).toBe("local");
         expect(res.data.PORT).toBe(5000);
-        expect(res.data.GEMINI_MODEL).toBe("gemini-2.5-flash");
+        expect(res.data.GEMINI_MODEL).toBe("gemini-3.5-flash");
       }
     });
   });
