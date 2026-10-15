@@ -12,6 +12,7 @@ import { calculatePriorityScore } from "./priority.js";
 import { generateRuleBasedActions, mergeRecommendations } from "./advisory.js";
 import { applyChangeDetection } from "./changeDetection.js";
 import { extractVideoFrames, validateMagicBytes } from "./mediaPreprocessor.js";
+import { env } from "../config/env.js";
 
 export interface PipelineJobInput {
   analysisId: string;
@@ -265,7 +266,7 @@ export class InspectionPipeline {
         summary: analysisResult.analysis_summary,
         overall_condition: analysisResult.overall_condition,
         limitations: analysisResult.limitations || [],
-        model_name: "gemini-2.5-flash",
+        model_name: env.GEMINI_MODEL,
         detector_kind: detector.kind,
         previous_analysis_id: linkedPreviousId,
         processing_ms: processingMs,
@@ -274,9 +275,23 @@ export class InspectionPipeline {
     } catch (err: any) {
       console.error(`[Pipeline Error in analysis ${analysisId}]:`, err);
       const processingMs = Date.now() - startTime;
+      let cleanMessage = err.message || "Analysis failed during processing.";
+      try {
+        if (typeof cleanMessage === "string" && cleanMessage.includes("{")) {
+          const startIdx = cleanMessage.indexOf("{");
+          const endIdx = cleanMessage.lastIndexOf("}");
+          if (startIdx !== -1 && endIdx !== -1) {
+            const parsed = JSON.parse(cleanMessage.substring(startIdx, endIdx + 1));
+            if (parsed.error?.message) {
+              cleanMessage = parsed.error.message;
+            }
+          }
+        }
+      } catch (_) {}
+
       await repository.updateAnalysis(analysisId, {
         status: "failed",
-        error_message: err.message || "Analysis failed during processing.",
+        error_message: cleanMessage,
         processing_ms: processingMs,
         completed_at: new Date().toISOString(),
       });
